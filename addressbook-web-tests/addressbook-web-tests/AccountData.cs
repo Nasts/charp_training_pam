@@ -8,17 +8,20 @@ namespace WebAddressBookTests
 {
     class AccountData
     {
-        private string username;
+        private string username; //значения
         private string password;
 
+        //конструктор для быстрого конструирования, в одну строку
         public AccountData(string username, string password)
         {
             this.username = username;
             this.password = password;
         }
 
+        //свойства значений
         public string Username
         {
+            //менять значения свойств
             get
             {
                 return username;
