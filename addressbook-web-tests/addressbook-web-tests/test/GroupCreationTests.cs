@@ -11,20 +11,26 @@ namespace WebAddressBookTests
     {
        
         [Test]
-        public void NewAddressGroupTest()
+        public void GroupCreationTest()
         {
-            GoToHomePage();
-            Login(new AccountData("admin","secret"));
-            GoToGroupsPage();
-            InitNewGroupCreation();
+           
             GroupData group = new GroupData("nast");
             group.Header = "nast";
             group.Footer = "nast";
-            FillGroupForm(group);
-            SubmitGroupCreation();
-            ReturnToGroupsPage();
+            app.Groups.Create(group);
             //driver.FindElement(By.LinkText("Logout")).Click();
         }
-  
+
+        [Test]
+        public void EmptyGroupCreationTest()
+        {
+
+            GroupData group = new GroupData("");
+            group.Header = "";
+            group.Footer = "";
+            app.Groups.Create(group);
+            //driver.FindElement(By.LinkText("Logout")).Click();
+        }
+
     }
 }
