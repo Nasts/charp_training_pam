@@ -10,14 +10,61 @@ using OpenQA.Selenium.Support.UI;
 
 namespace WebAddressBookTests
 {
-   public class ContactHelper : HelperBase
+   public class ContactHelper : HelperBase 
     {
        
         public ContactHelper(ApplicationManager manager) : base(manager)
         {
+
         }
 
-        public void InitNewContactCreation()
+        internal ContactHelper AddContactToGroup(int v)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectContact(v);
+            new GroupHelper(manager).SelectGroup(v);
+            SubmitAddContactToGroup();
+            manager.Navigator.GoToGroupsPage();
+            return this;
+        }
+
+
+        public ContactHelper SubmitAddContactToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click();
+            return this;
+        }
+
+        public ContactHelper RemoveContact(int v)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectContact(v);
+            RemoveContact();
+            SubmitRemove();
+            return this;
+        }
+
+        public ContactHelper SubmitRemove()
+        {
+            driver.SwitchTo().Alert().Accept();
+            return this;
+            //driver.SwitchTo().Alert();
+            //return true;
+        }
+
+        public ContactHelper RemoveContact()
+        {
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            return this;
+        }
+
+        public ContactHelper SelectContact(int index)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            return this;
+        }
+
+       public void InitNewContactCreation()
         {
             driver.FindElement(By.LinkText("add new")).Click();
         }
