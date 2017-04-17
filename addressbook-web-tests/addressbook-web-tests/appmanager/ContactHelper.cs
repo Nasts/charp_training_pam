@@ -18,20 +18,25 @@ namespace WebAddressBookTests
 
         }
 
-        internal ContactHelper AddContactToGroup(int v)
+        public ContactHelper AddContactToGroup(int v)
         {
             manager.Navigator.GoToHomePage();
             SelectContact(v);
             new GroupHelper(manager).SelectGroup(v);
             SubmitAddContactToGroup();
-            manager.Navigator.GoToGroupsPage();
+            //manager.Navigator.GoToGroupsPage();
             return this;
         }
 
 
-        public ContactHelper SubmitAddContactToGroup()
+        public ContactHelper ContactModify(int v, ContactData newDataContact)
         {
-            driver.FindElement(By.Name("add")).Click();
+           
+            manager.Navigator.GoToHomePage();
+            SelectContact(v);
+            InitContactModification();
+            FillContactForm(newDataContact);
+            SubmitContactModification();
             return this;
         }
 
@@ -43,6 +48,45 @@ namespace WebAddressBookTests
             SubmitRemove();
             return this;
         }
+
+        public ContactHelper CreateContact(ContactData contact)
+        {
+            InitNewContactCreation();
+            FillContactForm(contact);
+            SubmitContactCreation();
+            return this;
+        }
+
+
+        public void FillContactForm(ContactData contact)
+        {
+            driver.FindElement(By.Name("firstname")).Clear();
+            driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
+            driver.FindElement(By.Name("middlename")).Clear();
+            driver.FindElement(By.Name("middlename")).SendKeys(contact.Middlename);
+            driver.FindElement(By.Name("lastname")).Clear();
+            driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
+        }
+
+        public ContactHelper SubmitContactModification()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+        public ContactHelper InitContactModification()
+        {
+            driver.FindElement(By.CssSelector("img[alt=\"Edit\"]")).Click();
+            return this;
+        }
+
+        public ContactHelper SubmitAddContactToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click();
+            return this;
+        }
+
+      
 
         public ContactHelper SubmitRemove()
         {
@@ -67,24 +111,6 @@ namespace WebAddressBookTests
        public void InitNewContactCreation()
         {
             driver.FindElement(By.LinkText("add new")).Click();
-        }
-
-        public ContactHelper CreateContact(ContactData contact)
-        {
-            InitNewContactCreation();
-            FillContactForm(contact);
-            SubmitContactCreation();
-            return this;
-        }
-
-        public void FillContactForm(ContactData contact)
-        {
-            driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
-            driver.FindElement(By.Name("middlename")).Clear();
-            driver.FindElement(By.Name("middlename")).SendKeys(contact.Middlename);
-            driver.FindElement(By.Name("lastname")).Clear();
-            driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
         }
 
         public void SubmitContactCreation()
