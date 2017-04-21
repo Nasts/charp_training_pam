@@ -5,16 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
-
-namespace WebAddressBookTests.test
+namespace WebAddressBookTests
 {
     [TestFixture]
-    public class AddContactToGroupTests : AuthTestBase
+    public class LoginTests
     {
         [Test]
-        public void AddContactToGroupTest()
+        public void LoginWithValidCredentials()
         {
-            app.Contacts.AddContactToGroup(1);
+
         }
 
     }

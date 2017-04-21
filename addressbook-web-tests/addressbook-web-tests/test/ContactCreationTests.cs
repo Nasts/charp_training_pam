@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace WebAddressBookTests
 {
     [TestFixture]
-    public class WebAddressBookTests : TestBase
+    public class WebAddressBookTests : AuthTestBase
     {
        
         [Test]
